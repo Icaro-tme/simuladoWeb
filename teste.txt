@@ -1,0 +1,40 @@
+// schema.prisma
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+
+model Paciente {
+    id Int @id @default(autoincrement())
+    nome String
+    usuario String @unique
+    senha String @unique
+    consultas Consulta[]
+}
+
+model Secretaria {
+    id Int @id @default(autoincrement())
+    nome String
+    RG String @unique
+    consultas  Consulta[]
+}
+
+model Consulta {
+    id Int @id @default(autoincrement())
+    data DateTime
+    dentista String
+    paciente Paciente @relation(fields: [pacienteId], references: [id])
+    pacienteId Int
+    secretaria Secretaria @relation(fields: [secretariaId], references: [id])
+    secretariaId Int
+    agenda Agenda? @relation(fields: [agendaId], references: [id])
+    agendaId Int?
+}
+
+model Agenda {
+  id         Int        @id @default(autoincrement())
+  data       DateTime
+  consultas  Consulta[]
+}
