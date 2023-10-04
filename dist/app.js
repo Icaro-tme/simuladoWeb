@@ -15,6 +15,7 @@ app.use('/pacientes', pacienteRoutes_1.default);
 app.use('/consultas', consultaRoutes_1.default);
 app.use('/secretarias', secretariaRoutes_1.default);
 app.use('/agendas', agendaRoutes_1.default);
+app.use(express_1.default.static('public'));
 app.listen(port, () => {
     console.log(`Servidor está ouvindo na porta ${port}`);
 });

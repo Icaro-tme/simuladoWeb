@@ -14,7 +14,7 @@ app.use('/consultas', consultaRoutes);
 app.use('/secretarias', secretariaRoutes);
 app.use('/agendas', agendaRoutes);
 
-
+app.use(express.static('public'));
 
 app.listen(port, () => {
   console.log(`Servidor está ouvindo na porta ${port}`);
