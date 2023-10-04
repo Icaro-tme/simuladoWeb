@@ -16,7 +16,8 @@ model Paciente {
     nome String
     usuario String @unique
     senha String @unique
-    consultas Consulta[]
+    consultas Consulta[] 
+
 }
 
 model Secretaria {

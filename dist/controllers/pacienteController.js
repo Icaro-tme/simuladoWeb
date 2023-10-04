@@ -37,6 +37,48 @@ class PacienteController {
                 res.status(500).json({ error: 'Erro ao buscar paciente' });
             }
         });
+        this.createPaciente = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const { nome, usuario, senha } = req.body;
+            try {
+                const paciente = yield this.pacienteService.createPaciente({ nome, usuario, senha });
+                res.status(201).json(paciente);
+            }
+            catch (error) {
+                res.status(500).json({ error: 'Erro ao criar paciente' });
+            }
+        });
+        this.deletePaciente = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const pacienteId = parseInt(req.params.id);
+            try {
+                const paciente = yield this.pacienteService.deletePaciente(pacienteId);
+                if (paciente) {
+                    res.json(paciente);
+                }
+                else {
+                    res.status(404).json({ error: 'Paciente não encontrado' });
+                }
+            }
+            catch (error) {
+                console.error('Erro ao deletar paciente:', error); // Registre o erro para fins de depuração.
+                res.status(500).json({ error: 'Erro ao deletar paciente' });
+            }
+        });
+        this.updatePaciente = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const pacienteId = parseInt(req.params.id);
+            const { nome, usuario, senha } = req.body;
+            try {
+                const paciente = yield this.pacienteService.updatePaciente(pacienteId, { nome, usuario, senha });
+                if (paciente) {
+                    res.json(paciente);
+                }
+                else {
+                    res.status(404).json({ error: 'Paciente não encontrado' });
+                }
+            }
+            catch (error) {
+                res.status(500).json({ error: 'Erro ao atualizar paciente' });
+            }
+        });
         this.pacienteService = new pacienteService_1.PacienteService();
     }
 }

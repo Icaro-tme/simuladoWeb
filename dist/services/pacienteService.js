@@ -25,5 +25,37 @@ class PacienteService {
             });
         });
     }
+    createPaciente(data) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return prisma.paciente.create({
+                data,
+            });
+        });
+    }
+    deletePaciente(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // Exclua as consultas relacionadas ao paciente primeiro
+            yield prisma.consulta.deleteMany({
+                where: {
+                    pacienteId: id,
+                },
+            });
+            // Em seguida, exclua o paciente
+            const paciente = yield prisma.paciente.delete({
+                where: {
+                    id,
+                },
+            });
+            return paciente;
+        });
+    }
+    updatePaciente(id, data) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return prisma.paciente.update({
+                where: { id },
+                data,
+            });
+        });
+    }
 }
 exports.PacienteService = PacienteService;

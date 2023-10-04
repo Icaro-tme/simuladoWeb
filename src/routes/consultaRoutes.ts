@@ -6,7 +6,8 @@ const consultaController = new ConsultaController();
 
 router.get('/', consultaController.getAllConsultas);
 router.get('/:id', consultaController.getConsultaById);
-
-// Adicione rotas para criar, atualizar e excluir consultas aqui
+router.post('/', consultaController.createConsulta);
+router.put('/:id', consultaController.updateConsulta);
+router.delete('/:id', consultaController.deleteConsulta);
 
 export default router;

@@ -6,5 +6,7 @@ const router = (0, express_1.Router)();
 const pacienteController = new pacienteController_1.PacienteController();
 router.get('/', pacienteController.getAllPacientes);
 router.get('/:id', pacienteController.getPacienteById);
-// Adicione rotas para criar, atualizar e excluir pacientes aqui
+router.post('/', pacienteController.createPaciente);
+router.put('/:id', pacienteController.updatePaciente);
+router.delete('/:id', pacienteController.deletePaciente);
 exports.default = router;

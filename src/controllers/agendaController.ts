@@ -32,5 +32,47 @@ export class AgendaController {
     }
   };
 
-  // Adicione métodos para criar, atualizar e excluir agendas aqui
+  public createAgenda = async (req: Request, res: Response) => {
+    const { data } = req.body;
+
+    try {
+        const agenda = await this.agendaService.createAgenda({ data });
+        res.status(201).json(agenda);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao criar agenda' });
+    }
+};
+
+public deleteAgenda = async (req: Request, res: Response) => {
+  const agendaId = parseInt(req.params.id);
+
+  try {
+      const agenda = await this.agendaService.deleteAgenda(agendaId);
+      if (agenda) {
+          res.json(agenda);
+      } else {
+          res.status(404).json({ error: 'Agenda não encontrada' });
+      }
+  } catch (error) {
+      res.status(500).json({ error: 'Erro ao excluir agenda' });
+  }
+};
+
+public updateAgenda = async (req: Request, res: Response) => {
+  const agendaId = parseInt(req.params.id);
+  const { data } = req.body;
+
+  try {
+      const agenda = await this.agendaService.updateAgenda(agendaId, { data });
+      if (agenda) {
+          res.json(agenda);
+      } else {
+          res.status(404).json({ error: 'Agenda não encontrada' });
+      }
+  } catch (error) {
+      res.status(500).json({ error: 'Erro ao atualizar agenda' });
+  }
+};
+
+
 }

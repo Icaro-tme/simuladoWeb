@@ -13,5 +13,37 @@ export class AgendaService {
     });
   }
 
-  // Adicione métodos para criar, atualizar e excluir agendas aqui
+
+  public async createAgenda(data: { data: Date }) {
+    return prisma.agenda.create({
+        data,
+    });
+}
+
+
+public async deleteAgenda(id: number) {
+  // Exclua as consultas relacionadas à agenda primeiro (se houver uma relação)
+  await prisma.consulta.deleteMany({
+    where: {
+      agendaId: id,
+    },
+  });
+
+  // Em seguida, exclua a agenda
+  const agenda = await prisma.agenda.delete({
+    where: {
+      id,
+    },
+  });
+
+  return agenda;
+}
+
+public async updateAgenda(id: number, data: { data: Date }) {
+  return prisma.agenda.update({
+      where: { id },
+      data,
+  });
+}
+
 }

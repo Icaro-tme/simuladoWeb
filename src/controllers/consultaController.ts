@@ -32,5 +32,58 @@ export class ConsultaController {
     }
   };
 
-  // Adicione métodos para criar, atualizar e excluir consultas aqui
+  public createConsulta = async (req: Request, res: Response) => {
+    const { data, dentista, pacienteId, secretariaId, agendaId } = req.body;
+
+    try {
+        const consulta = await this.consultaService.createConsulta({
+            data,
+            dentista,
+            pacienteId,
+            secretariaId,
+            agendaId
+        });
+        res.status(201).json(consulta);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao criar consulta' });
+    }
+  };
+
+  public deleteConsulta = async (req: Request, res: Response) => {
+    const consultaId = parseInt(req.params.id);
+
+    try {
+        const consulta = await this.consultaService.deleteConsulta(consultaId);
+        if (consulta) {
+            res.json(consulta);
+        } else {
+            res.status(404).json({ error: 'Consulta não encontrada' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao deletar consulta' });
+    }
+  };
+
+  public updateConsulta = async (req: Request, res: Response) => {
+    const consultaId = parseInt(req.params.id);
+    const { data, dentista, pacienteId, secretariaId, agendaId } = req.body;
+
+    try {
+        const consulta = await this.consultaService.updateConsulta(consultaId, {
+            data,
+            dentista,
+            pacienteId,
+            secretariaId,
+            agendaId
+        });
+        if (consulta) {
+            res.json(consulta);
+        } else {
+            res.status(404).json({ error: 'Consulta não encontrada' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao atualizar consulta' });
+    }
+  };
+
 }

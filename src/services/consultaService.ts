@@ -13,5 +13,36 @@ export class ConsultaService {
     });
   }
 
-  // Adicione métodos para criar, atualizar e excluir consultas aqui
+  public async createConsulta(data: {
+    data: Date,
+    dentista: string,
+    pacienteId: number,
+    secretariaId: number,
+    agendaId?: number
+}) {
+    return prisma.consulta.create({
+        data,
+    });
+}
+
+public async deleteConsulta(id: number) {
+  return prisma.consulta.delete({
+      where: { id },
+  });
+}
+
+public async updateConsulta(id: number, data: {
+  data: Date,
+  dentista: string,
+  pacienteId: number,
+  secretariaId: number,
+  agendaId?: number
+}) {
+  return prisma.consulta.update({
+      where: { id },
+      data,
+  });
+
+}
+
 }

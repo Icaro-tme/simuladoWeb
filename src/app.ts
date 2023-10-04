@@ -11,10 +11,10 @@ app.use(express.json());
 
 app.use('/pacientes', pacienteRoutes);
 app.use('/consultas', consultaRoutes);
-app.use('/secretaria', secretariaRoutes);
-app.use('/agenda', agendaRoutes);
+app.use('/secretarias', secretariaRoutes);
+app.use('/agendas', agendaRoutes);
 
-// Use outras rotas aqui
+
 
 app.listen(port, () => {
   console.log(`Servidor está ouvindo na porta ${port}`);

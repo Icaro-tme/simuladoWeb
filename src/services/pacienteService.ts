@@ -13,5 +13,35 @@ export class PacienteService {
     });
   }
 
-  // Adicione métodos para criar, atualizar e excluir pacientes aqui
+  public async createPaciente(data: { nome: string, usuario: string, senha: string }) {
+    return prisma.paciente.create({
+        data,
+    });
+}
+
+public async deletePaciente(id: number) {
+  // Exclua as consultas relacionadas ao paciente primeiro
+  await prisma.consulta.deleteMany({
+    where: {
+      pacienteId: id,
+    },
+  });
+
+  // Em seguida, exclua o paciente
+  const paciente = await prisma.paciente.delete({
+    where: {
+      id,
+    },
+  });
+
+  return paciente;
+}
+
+public async updatePaciente(id: number, data: { nome: string, usuario: string, senha: string }) {
+  return prisma.paciente.update({
+      where: { id },
+      data,
+  });
+}
+
 }

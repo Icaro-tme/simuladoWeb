@@ -6,7 +6,8 @@ const secretariaController = new SecretariaController();
 
 router.get('/', secretariaController.getAllSecretarias);
 router.get('/:id', secretariaController.getSecretariaById);
-
-// Adicione rotas para criar, atualizar e excluir secretárias aqui
+router.post('/', secretariaController.createSecretaria);
+router.put('/:id', secretariaController.updateSecretaria);
+router.delete('/:id', secretariaController.deleteSecretaria);
 
 export default router;

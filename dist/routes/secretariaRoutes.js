@@ -1,1 +1,12 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const secretariaController_1 = require("../controllers/secretariaController");
+const router = (0, express_1.Router)();
+const secretariaController = new secretariaController_1.SecretariaController();
+router.get('/', secretariaController.getAllSecretarias);
+router.get('/:id', secretariaController.getSecretariaById);
+router.post('/', secretariaController.createSecretaria);
+router.put('/:id', secretariaController.updateSecretaria);
+router.delete('/:id', secretariaController.deleteSecretaria);
+exports.default = router;
